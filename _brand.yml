@@ -1,0 +1,55 @@
+meta:
+  name:
+    short: CSI Pacific
+    full: Canadian Sport Institute Pacific
+  link:
+    home: https://www.csipacific.ca
+
+color:
+  palette:
+    white: "#FFFFFF"
+    black: "#000000"
+    light-grey: "#FCFCFC"
+    red: "#D71920"
+    grey: "#A7A9AC"
+  foreground: black
+  background: light-grey
+  primary: red
+  secondary: grey
+  success: "#4CAF50"
+  info: "#2196F3"
+  warning: "#FFC107"
+  danger: "#D32F2F"
+  light: white
+  dark: black
+
+typography:
+  fonts:
+    - family: Open Sans
+      source: google
+      weight: [400, 600, 700]
+      style: [normal, italic]
+    - family: Roboto Slab
+      source: google
+      weight: [600, 900]
+      style: [normal, italic]
+  base:
+    family: Open Sans
+    weight: 400
+    size: 16px
+    line-height: 1.5
+  headings:
+    family: Roboto Slab
+    weight: 600
+    line-height: 1.2
+    color: black
+  link:
+    weight: 600
+    color: red
+    decoration: underline
+
+defaults:
+  shiny:
+    theme:
+      defaults:
+        navbar-bg: $primary

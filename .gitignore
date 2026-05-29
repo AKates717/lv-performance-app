@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.Rprofile
+renv/library/
+renv/staging/
+*.json
+!renv/settings.json
+!renv/activate.R
+.DS_Store
