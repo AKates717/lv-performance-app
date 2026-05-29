@@ -254,80 +254,6 @@
         "RemoteSha": "0.1-6"
       }
     },
-    "bit": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
-      "description": {
-        "Package": "bit",
-        "Title": "Classes and Methods for Fast Memory-Efficient Boolean Selections",
-        "Version": "4.6.0",
-        "Authors@R": "c(\n    person(\"Michael\", \"Chirico\", email = \"MichaelChirico4@gmail.com\", role = c(\"aut\", \"cre\")),\n    person(\"Jens\", \"Oehlschlägel\", role = \"aut\"),\n    person(\"Brian\", \"Ripley\", role = \"ctb\")\n  )",
-        "Depends": "R (>= 3.4.0)",
-        "Suggests": "testthat (>= 3.0.0), roxygen2, knitr, markdown, rmarkdown,\nmicrobenchmark, bit64 (>= 4.0.0), ff (>= 4.0.0)",
-        "Description": "Provided are classes for boolean and skewed boolean vectors,\n    fast boolean methods, fast unique and non-unique integer sorting,\n    fast set operations on sorted and unsorted sets of integers, and\n    foundations for ff (range index, compression, chunked processing).",
-        "License": "GPL-2 | GPL-3",
-        "LazyLoad": "yes",
-        "ByteCompile": "yes",
-        "Encoding": "UTF-8",
-        "URL": "https://github.com/r-lib/bit",
-        "VignetteBuilder": "knitr, rmarkdown",
-        "RoxygenNote": "7.3.2",
-        "Config/testthat/edition": "3",
-        "NeedsCompilation": "yes",
-        "Packaged": "2025-03-05 07:18:45 UTC; michael",
-        "Author": "Michael Chirico [aut, cre],\n  Jens Oehlschlägel [aut],\n  Brian Ripley [ctb]",
-        "Maintainer": "Michael Chirico <MichaelChirico4@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2025-03-06 10:50:01 UTC",
-        "Built": "R 4.5.0; aarch64-apple-darwin20; 2025-03-31 21:46:07 UTC; unix",
-        "Archs": "bit.so.dSYM",
-        "RemoteType": "standard",
-        "RemoteRef": "bit",
-        "RemotePkgRef": "bit",
-        "RemoteRepos": "https://cloud.r-project.org",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "aarch64-apple-darwin20",
-        "RemoteSha": "4.6.0"
-      }
-    },
-    "bit64": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
-      "description": {
-        "Package": "bit64",
-        "Title": "A S3 Class for Vectors of 64bit Integers",
-        "Version": "4.8.2",
-        "Authors@R": "c(\n    person(\"Michael\", \"Chirico\", email=\"michaelchirico4@gmail.com\", role=c(\"aut\", \"cre\")),\n    person(\"Jens\", \"Oehlschlägel\", role=\"aut\"),\n    person(\"Leonardo\", \"Silvestri\", role=\"ctb\"),\n    person(\"Ofek\", \"Shilon\", role=\"ctb\"),\n    person(\"Christian\", \"Ullerich\", role=\"ctb\")\n  )",
-        "Depends": "R (>= 3.5.0)",
-        "Description": "\n  Package 'bit64' provides serializable S3 atomic 64bit (signed) integers.\n  These are useful for handling database keys and exact counting in +-2^63.\n  WARNING: do not use them as replacement for 32bit integers, integer64 are not\n  supported for subscripting by R-core and they have different semantics when\n  combined with double, e.g. integer64 + double => integer64.\n  Class integer64 can be used in vectors, matrices, arrays and data.frames.\n  Methods are available for coercion from and to logicals, integers, doubles,\n  characters and factors as well as many elementwise and summary functions.\n  Many fast algorithmic operations such as 'match' and 'order' support inter-\n  active data exploration and manipulation and optionally leverage caching.",
-        "License": "GPL-2 | GPL-3",
-        "LazyLoad": "yes",
-        "ByteCompile": "yes",
-        "URL": "https://github.com/r-lib/bit64, https://bit64.r-lib.org",
-        "Encoding": "UTF-8",
-        "Imports": "bit (>= 4.0.0), graphics, methods, stats, utils",
-        "Suggests": "patrick (>= 0.3.0), testthat (>= 3.3.0), withr",
-        "Config/testthat/edition": "3",
-        "Config/Needs/development": "patrick, testthat",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "RoxygenNote": "7.3.3",
-        "NeedsCompilation": "yes",
-        "Packaged": "2026-05-19 05:37:05 UTC; chiricom",
-        "Author": "Michael Chirico [aut, cre],\n  Jens Oehlschlägel [aut],\n  Leonardo Silvestri [ctb],\n  Ofek Shilon [ctb],\n  Christian Ullerich [ctb]",
-        "Maintainer": "Michael Chirico <michaelchirico4@gmail.com>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-05-19 09:40:02 UTC",
-        "Built": "R 4.5.2; aarch64-apple-darwin20; 2026-05-19 10:28:16 UTC; unix",
-        "Archs": "bit64.so.dSYM",
-        "RemoteType": "standard",
-        "RemoteRef": "bit64",
-        "RemotePkgRef": "bit64",
-        "RemoteRepos": "https://cloud.r-project.org",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "aarch64-apple-darwin20",
-        "RemoteSha": "4.8.2"
-      }
-    },
     "brand.yml": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -542,43 +468,6 @@
         "RemoteReposName": "CRAN",
         "RemotePkgPlatform": "aarch64-apple-darwin20",
         "RemoteSha": "2.0.0"
-      }
-    },
-    "connectapi": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
-      "description": {
-        "Type": "Package",
-        "Package": "connectapi",
-        "Title": "Utilities for Interacting with the 'Posit Connect' Server API",
-        "Version": "0.12.1",
-        "Authors@R": "c(\n    person(given = \"Kara\",\n           family = \"Woo\",\n           role = c(\"aut\", \"cre\"),\n           email = \"kara.woo@posit.co\"),\n    person(given = \"Toph\",\n           family = \"Allen\",\n           role = c(\"aut\"),\n           email = \"toph@posit.co\"),\n    person(given = \"Neal\",\n           family = \"Richardson\",\n           role = c(\"aut\")),\n    person(given = \"Sean\",\n           family = \"Lopp\",\n           role = c(\"aut\")),\n    person(given = \"Cole\",\n           family = \"Arendt\",\n           role = c(\"aut\")),\n    person(given = \"Posit, PBC\",\n           role = c(\"cph\", \"fnd\")))",
-        "Description": "Provides a helpful 'R6' class and methods for interacting with\n    the 'Posit Connect' Server API along with some meaningful utility functions\n    for regular tasks. API documentation varies by 'Posit Connect' installation\n    and version, but the latest documentation is also hosted publicly at\n    <https://docs.posit.co/connect/api/>.",
-        "License": "MIT + file LICENSE",
-        "URL": "https://posit-dev.github.io/connectapi/,\nhttps://github.com/posit-dev/connectapi",
-        "BugReports": "https://github.com/posit-dev/connectapi/issues",
-        "Imports": "bit64, fs, glue, httr, mime, jsonlite, lifecycle, magrittr,\npurrr, R6, rlang (>= 0.4.2), tibble, uuid, vctrs (>= 0.3.0),\nbase64enc",
-        "Suggests": "covr, dbplyr, dplyr, ggplot2, gridExtra, httptest, knitr,\nlubridate, progress, rmarkdown, rprojroot, rsconnect, spelling,\ntestthat, tidyr, webshot2, withr",
-        "VignetteBuilder": "knitr",
-        "Encoding": "UTF-8",
-        "Language": "en-US",
-        "RoxygenNote": "7.3.3",
-        "Config/testthat/edition": "3",
-        "Collate": "'audits.R' 'browse.R' 'connect.R' 'connectapi-package.R'\n'connectapi.R' 'content.R' 'deploy.R' 'get.R' 'git.R'\n'groups.R' 'integrations.R' 'lazy.R' 'page.R' 'parse.R'\n'promote.R' 'ptype.R' 'remote.R' 'runtime-caches.R'\n'schedule.R' 'tags.R' 'utils.R' 'thumbnail.R' 'user.R'\n'utils-pipe.R' 'variant.R'",
-        "NeedsCompilation": "no",
-        "Packaged": "2026-04-29 19:15:15 UTC; kara",
-        "Author": "Kara Woo [aut, cre],\n  Toph Allen [aut],\n  Neal Richardson [aut],\n  Sean Lopp [aut],\n  Cole Arendt [aut],\n  Posit, PBC [cph, fnd]",
-        "Maintainer": "Kara Woo <kara.woo@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-04-29 20:00:03 UTC",
-        "Built": "R 4.5.2; ; 2026-04-29 20:34:25 UTC; unix",
-        "RemoteType": "standard",
-        "RemoteRef": "connectapi",
-        "RemotePkgRef": "connectapi",
-        "RemoteRepos": "https://cloud.r-project.org",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "aarch64-apple-darwin20",
-        "RemoteSha": "0.12.1"
       }
     },
     "cpp11": {
@@ -1423,6 +1312,44 @@
         "RemoteSha": "1.4.8"
       }
     },
+    "httr2": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "httr2",
+        "Title": "Perform HTTP Requests and Process the Responses",
+        "Version": "1.2.2",
+        "Authors@R": "c(\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\")),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\")),\n    person(\"Maximilian\", \"Girlich\", role = \"ctb\")\n  )",
+        "Description": "Tools for creating and modifying HTTP requests, then\n    performing them and processing the results. 'httr2' is a modern\n    re-imagining of 'httr' that uses a pipe-based interface and solves\n    more of the problems that API wrapping packages face.",
+        "License": "MIT + file LICENSE",
+        "URL": "https://httr2.r-lib.org, https://github.com/r-lib/httr2",
+        "BugReports": "https://github.com/r-lib/httr2/issues",
+        "Depends": "R (>= 4.1)",
+        "Imports": "cli (>= 3.0.0), curl (>= 6.4.0), glue, lifecycle, magrittr,\nopenssl, R6, rappdirs, rlang (>= 1.1.0), vctrs (>= 0.6.3),\nwithr",
+        "Suggests": "askpass, bench, clipr, covr, docopt, httpuv, jose, jsonlite,\nknitr, later (>= 1.4.0), nanonext, otel (>= 0.2.0), otelsdk (>=\n0.2.0), paws.common (>= 0.8.0), promises, rmarkdown, testthat\n(>= 3.1.8), tibble, webfakes (>= 1.4.0), xml2",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Config/testthat/parallel": "true",
+        "Config/testthat/start-first": "resp-stream, req-perform",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.3",
+        "NeedsCompilation": "no",
+        "Packaged": "2025-12-05 17:46:06 UTC; hadleywickham",
+        "Author": "Hadley Wickham [aut, cre],\n  Posit Software, PBC [cph, fnd],\n  Maximilian Girlich [ctb]",
+        "Maintainer": "Hadley Wickham <hadley@posit.co>",
+        "Repository": "CRAN",
+        "Date/Publication": "2025-12-08 09:50:02 UTC",
+        "Built": "R 4.5.2; ; 2025-12-08 13:14:23 UTC; unix",
+        "RemoteType": "standard",
+        "RemoteRef": "httr2",
+        "RemotePkgRef": "httr2",
+        "RemoteRepos": "https://cloud.r-project.org",
+        "RemoteReposName": "CRAN",
+        "RemotePkgPlatform": "aarch64-apple-darwin20",
+        "RemoteSha": "1.2.2"
+      }
+    },
     "ids": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -1946,43 +1873,6 @@
         "RemoteReposName": "CRAN",
         "RemotePkgPlatform": "aarch64-apple-darwin20",
         "RemoteSha": "1.11.1"
-      }
-    },
-    "pins": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
-      "description": {
-        "Type": "Package",
-        "Package": "pins",
-        "Title": "Pin, Discover, and Share Resources",
-        "Version": "1.4.2",
-        "Authors@R": "c(\n    person(\"Julia\", \"Silge\", , \"julia.silge@posit.co\", role = c(\"cre\", \"aut\"),\n           comment = c(ORCID = \"0000-0002-3671-836X\")),\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Javier\", \"Luraschi\", , \"jluraschi@gmail.com\", role = \"aut\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
-        "Description": "Publish data sets, models, and other R objects, making it\n    easy to share them across projects and with your colleagues. You can\n    pin objects to a variety of \"boards\", including local folders (to\n    share on a networked drive or with 'DropBox'), 'Posit Connect',\n    'AWS S3', and more.",
-        "License": "Apache License (>= 2)",
-        "URL": "https://pins.rstudio.com/, https://github.com/rstudio/pins-r",
-        "BugReports": "https://github.com/rstudio/pins-r/issues",
-        "Depends": "R (>= 4.1.0)",
-        "Imports": "cli, digest, fs, generics, glue, httr, jsonlite, lifecycle,\npurrr (>= 1.0.0), rappdirs, rlang (>= 1.1.0), tibble, whisker,\nwithr (>= 2.4.3), yaml",
-        "Suggests": "archive, arrow, AzureStor, covr, data.table, datasets,\nfilelock, gitcreds, googleCloudStorageR, googledrive, httr2,\nids, knitr, Microsoft365R, mime, mockery, nanoparquet, openssl,\npaws.storage, qs2, R.utils, rmarkdown, rsconnect, shiny,\nsodium, testthat (>= 3.1.7), webfakes (>= 1.2.0), xml2, zip",
-        "VignetteBuilder": "knitr",
-        "Config/Needs/website": "tidyverse/tidytemplate",
-        "Config/testthat/edition": "3",
-        "Encoding": "UTF-8",
-        "RoxygenNote": "7.3.3",
-        "NeedsCompilation": "no",
-        "Packaged": "2026-03-09 13:27:10 UTC; juliasilge",
-        "Author": "Julia Silge [cre, aut] (ORCID: <https://orcid.org/0000-0002-3671-836X>),\n  Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>),\n  Javier Luraschi [aut],\n  Posit Software, PBC [cph, fnd]",
-        "Maintainer": "Julia Silge <julia.silge@posit.co>",
-        "Repository": "CRAN",
-        "Date/Publication": "2026-03-09 14:10:02 UTC",
-        "Built": "R 4.5.2; ; 2026-03-09 14:30:33 UTC; unix",
-        "RemoteType": "standard",
-        "RemoteRef": "pins",
-        "RemotePkgRef": "pins",
-        "RemoteRepos": "https://cloud.r-project.org",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "aarch64-apple-darwin20",
-        "RemoteSha": "1.4.2"
       }
     },
     "pkgconfig": {
@@ -2892,36 +2782,6 @@
         "RemoteSha": "0.4.3"
       }
     },
-    "whisker": {
-      "Source": "CRAN",
-      "Repository": "https://cloud.r-project.org",
-      "description": {
-        "Package": "whisker",
-        "Maintainer": "Edwin de Jonge <edwindjonge@gmail.com>",
-        "License": "GPL-3",
-        "Title": "{{mustache}} for R, Logicless Templating",
-        "Type": "Package",
-        "LazyLoad": "yes",
-        "Author": "Edwin de Jonge",
-        "Description": "Implements 'Mustache' logicless templating.",
-        "Version": "0.4.1",
-        "URL": "https://github.com/edwindj/whisker",
-        "Suggests": "markdown",
-        "RoxygenNote": "6.1.1",
-        "NeedsCompilation": "no",
-        "Packaged": "2022-12-05 15:15:55 UTC; hornik",
-        "Repository": "CRAN",
-        "Date/Publication": "2022-12-05 15:33:50 UTC",
-        "Built": "R 4.5.0; ; 2025-03-31 21:55:43 UTC; unix",
-        "RemoteType": "standard",
-        "RemoteRef": "whisker",
-        "RemotePkgRef": "whisker",
-        "RemoteRepos": "https://cloud.r-project.org",
-        "RemoteReposName": "CRAN",
-        "RemotePkgPlatform": "aarch64-apple-darwin20",
-        "RemoteSha": "0.4.1"
-      }
-    },
     "withr": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -3069,10 +2929,10 @@
       "checksum": "f2c0f3f491fe58fe01c2c7de3d980d94"
     },
     ".Rprofile": {
-      "checksum": "52262e71a529676f33f9a31a97412315"
+      "checksum": "bb20d5bfc1739b4131376731c5ed0721"
     },
     "app.R": {
-      "checksum": "d32127b04fc22b4c54920307b0f21f6b"
+      "checksum": "0fc456b5561c0324ce022bbf5a30a48a"
     },
     "config.R": {
       "checksum": "5ccb798bfe2ec43750c97c8c5983f7d3"
@@ -3081,13 +2941,13 @@
       "checksum": "791a3b0dd63cf9bc70ae469093bf703f"
     },
     "R/storage.R": {
-      "checksum": "14efe6455fc7eb92e984eac1dc2dc265"
+      "checksum": "ce4758993e84c0821555b4b96bdb4182"
     },
     "README.md": {
       "checksum": "c50f8c2b13b33448a965242217ce069a"
     },
     "renv.lock": {
-      "checksum": "84960f3324e9e957d4ba9a782db37174"
+      "checksum": "f8046b340e02b12d46c80b019bac4dd6"
     }
   },
   "users": null
