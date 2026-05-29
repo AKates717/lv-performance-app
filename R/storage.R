@@ -51,11 +51,20 @@ storage_append <- function(df) {
   invisible(TRUE)
 }
 
-#' Read all rows from the Supabase load_velocity table.
-storage_read <- function() {
-  resp <- httr2::request(paste0(supabase_url(), "/load_velocity")) |>
+#' Read rows from Supabase, optionally filtered by athlete and/or exercise.
+storage_read <- function(athlete = NULL, exercise = NULL) {
+  req <- httr2::request(paste0(supabase_url(), "/load_velocity")) |>
     supabase_headers() |>
-    httr2::req_url_query(select = "*", order = "created_at.asc") |>
+    httr2::req_url_query(select = "*", order = "date.asc,created_at.asc")
+
+  if (!is.null(athlete) && nzchar(athlete)) {
+    req <- req |> httr2::req_url_query(athlete = paste0("eq.", athlete))
+  }
+  if (!is.null(exercise) && nzchar(exercise)) {
+    req <- req |> httr2::req_url_query(exercise = paste0("eq.", exercise))
+  }
+
+  resp <- req |>
     httr2::req_error(is_error = \(r) FALSE) |>
     httr2::req_perform()
 

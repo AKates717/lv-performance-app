@@ -2929,10 +2929,10 @@
       "checksum": "f2c0f3f491fe58fe01c2c7de3d980d94"
     },
     ".Rprofile": {
-      "checksum": "bb20d5bfc1739b4131376731c5ed0721"
+      "checksum": "d5bf31187ddc58beaf34006c674b414f"
     },
     "app.R": {
-      "checksum": "0fc456b5561c0324ce022bbf5a30a48a"
+      "checksum": "2ec647f695ab765832e7e6bdc349db3b"
     },
     "config.R": {
       "checksum": "5ccb798bfe2ec43750c97c8c5983f7d3"
@@ -2941,7 +2941,7 @@
       "checksum": "791a3b0dd63cf9bc70ae469093bf703f"
     },
     "R/storage.R": {
-      "checksum": "ce4758993e84c0821555b4b96bdb4182"
+      "checksum": "b680888e1d2ea20df0fa4d033c17c95a"
     },
     "README.md": {
       "checksum": "c50f8c2b13b33448a965242217ce069a"

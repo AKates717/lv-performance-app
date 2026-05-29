@@ -49,7 +49,7 @@ ui <- page_navbar(
 
       # ── Sidebar ────────────────────────────────────────────────────────────
       sidebar = sidebar(
-        width = 280,
+        width = 500,
 
         # Session setup
         div(class = "sidebar-section", "Session"),
@@ -114,10 +114,20 @@ ui <- page_navbar(
         # Session table
         card(
           card_header("Session Log"),
-          card_body(
-            padding = "8px",
-            DTOutput("session_table")
-          )
+          card_body(padding = "8px", DTOutput("session_table"))
+        ),
+
+        # Historical data table
+        card(
+          card_header(
+            class = "d-flex justify-content-between align-items-center",
+            span("Athlete History"),
+            actionButton("refresh_history", label = NULL,
+                         icon = icon("rotate-right"),
+                         class = "btn btn-sm btn-outline-secondary",
+                         title = "Refresh from database")
+          ),
+          card_body(padding = "8px", DTOutput("history_table"))
         )
       )
     )
@@ -158,6 +168,32 @@ server <- function(input, output, session) {
     save_message = NULL,
     save_ok      = TRUE
   )
+
+  # ── Historical data ──────────────────────────────────────────────────────
+  # Fetches from Supabase whenever athlete/exercise changes or refresh clicked.
+  history_trigger <- reactiveVal(0)
+
+  observeEvent(list(input$athlete, input$exercise), {
+    history_trigger(history_trigger() + 1)
+  })
+  observeEvent(input$refresh_history, {
+    history_trigger(history_trigger() + 1)
+  })
+
+  historical_data <- reactive({
+    history_trigger()
+    req(input$athlete, nzchar(input$athlete))
+    tryCatch(
+      storage_read(athlete = input$athlete, exercise = input$exercise),
+      error = function(e) {
+        showNotification(paste("Could not load history:", conditionMessage(e)),
+                         type = "warning", duration = 5)
+        tibble(date = as.Date(character()), athlete = character(),
+               exercise = character(), set_number = integer(),
+               load = numeric(), rep = integer(), velocity = numeric())
+      }
+    )
+  })
 
   # ── Dynamic velocity inputs ──────────────────────────────────────────────
   output$velocity_inputs <- renderUI({
@@ -339,45 +375,87 @@ server <- function(input, output, session) {
 
   # ── Load-Velocity Profile plot ───────────────────────────────────────────
   output$lv_plot <- renderPlotly({
-    d <- rv$session_data
-    if (nrow(d) == 0) {
+    session_d  <- rv$session_data
+    hist_d     <- historical_data()
+    has_session <- nrow(session_d) > 0
+    has_history <- nrow(hist_d) > 0
+
+    if (!has_session && !has_history) {
       p <- ggplot() +
-        annotate("text", x = 0.5, y = 0.5, label = "Add a set to see the profile",
+        annotate("text", x = 0.5, y = 0.5,
+                 label = "Add a set to see the profile",
                  colour = "#A7A9AC", size = 4, family = "Open Sans") +
         theme_void()
       return(ggplotly(p) |> layout(paper_bgcolor = "#FCFCFC", plot_bgcolor = "#FCFCFC"))
     }
 
-    # Mean velocity per set
-    summary_d <- d |>
-      group_by(set_number, load) |>
-      summarise(mean_vel = mean(velocity, na.rm = TRUE),
-                .groups = "drop")
+    # Mean velocity per set — historical (grey) and current session (red)
+    summarise_sets <- function(d, source_label) {
+      d |>
+        group_by(date, set_number, load) |>
+        summarise(mean_vel = mean(velocity, na.rm = TRUE), .groups = "drop") |>
+        mutate(source = source_label)
+    }
 
-    p <- ggplot(summary_d, aes(x = load, y = mean_vel,
-                                text = paste0("Set ", set_number, "<br>",
-                                              load, " ", LOAD_UNIT, "<br>",
-                                              sprintf("%.2f", mean_vel), " ", VEL_UNIT))) +
+    plot_d <- bind_rows(
+      if (has_history) summarise_sets(hist_d, "History") else NULL,
+      if (has_session) summarise_sets(session_d, "This Session") else NULL
+    )
+
+    # Regression line across all data for the profile
+    p <- ggplot(plot_d, aes(x = load, y = mean_vel)) +
       geom_smooth(method = "lm", se = TRUE, colour = "#D71920", fill = "#D71920",
-                  alpha = 0.12, linewidth = 0.8, na.rm = TRUE) +
-      geom_point(colour = "#D71920", size = 4, alpha = 0.9) +
-      geom_text(aes(label = paste0("S", set_number)),
-                vjust = -1, size = 3, colour = "#000000", family = "Open Sans") +
+                  alpha = 0.10, linewidth = 0.8, na.rm = TRUE)
+
+    # Historical points (grey, smaller)
+    if (has_history) {
+      hist_sum <- plot_d |> filter(source == "History")
+      p <- p + geom_point(
+        data = hist_sum,
+        aes(text = paste0(format(date, "%Y-%m-%d"), "<br>",
+                          load, " ", LOAD_UNIT, "<br>",
+                          sprintf("%.2f", mean_vel), " ", VEL_UNIT)),
+        colour = "#A7A9AC", size = 3, alpha = 0.7
+      )
+    }
+
+    # Current session points (red, larger, labelled)
+    if (has_session) {
+      sess_sum <- plot_d |> filter(source == "This Session")
+      p <- p +
+        geom_point(
+          data = sess_sum,
+          aes(text = paste0("Set ", set_number, "<br>",
+                            load, " ", LOAD_UNIT, "<br>",
+                            sprintf("%.2f", mean_vel), " ", VEL_UNIT)),
+          colour = "#D71920", size = 4.5, alpha = 0.95
+        ) +
+        geom_text(
+          data = sess_sum,
+          aes(label = paste0("S", set_number)),
+          vjust = -1, size = 3, colour = "#000000", family = "Open Sans"
+        )
+    }
+
+    p <- p +
       scale_x_continuous(expand = expansion(mult = 0.15)) +
       scale_y_continuous(expand = expansion(mult = 0.15)) +
       labs(x = paste0("Load (", LOAD_UNIT, ")"),
-           y = paste0("Mean Velocity (", VEL_UNIT, ")")) +
+           y = paste0("Mean Velocity (", VEL_UNIT, ")"),
+           caption = if (has_history) "Grey = historical  ·  Red = this session" else NULL) +
       theme_minimal(base_family = "Open Sans") +
       theme(
         plot.background  = element_rect(fill = "#FCFCFC", colour = NA),
         panel.grid.minor = element_blank(),
         axis.title       = element_text(size = 11),
-        axis.text        = element_text(size = 10)
+        axis.text        = element_text(size = 10),
+        plot.caption     = element_text(size = 8, colour = "#A7A9AC")
       )
 
     ggplotly(p, tooltip = "text") |>
       layout(paper_bgcolor = "#FCFCFC", plot_bgcolor = "#FCFCFC",
-             hoverlabel = list(bgcolor = "#000", font = list(color = "#fff")))
+             hoverlabel = list(bgcolor = "#000", font = list(color = "#fff")),
+             showlegend = FALSE)
   })
 
   # ── Rep velocity bar chart ───────────────────────────────────────────────
@@ -472,7 +550,7 @@ server <- function(input, output, session) {
       rownames  = FALSE,
       selection = "none",
       options   = list(
-        pageLength = 15,
+        pageLength = 10,
         dom        = "frtip",
         order      = list(list(3, "asc"), list(5, "asc")),
         columnDefs = list(list(className = "dt-center", targets = "_all"))
@@ -484,6 +562,63 @@ server <- function(input, output, session) {
         backgroundSize = "100% 88%",
         backgroundRepeat = "no-repeat",
         backgroundPosition = "center"
+      )
+  })
+
+  # ── Athlete history table ────────────────────────────────────────────────
+  output$history_table <- renderDT({
+    d <- historical_data()
+
+    if (nrow(d) == 0) return(
+      datatable(
+        tibble(Message = if (nzchar(input$athlete))
+          paste0("No history found for ", input$athlete, " — ", input$exercise)
+          else "Select an athlete to see their history."),
+        options = list(dom = "t"), rownames = FALSE
+      )
+    )
+
+    # Summarise to mean velocity per set for a cleaner history view
+    display <- d |>
+      group_by(Date = format(date, "%Y-%m-%d"),
+               Athlete  = athlete,
+               Exercise = exercise,
+               Set      = set_number,
+               `Load (kg)` = load) |>
+      summarise(
+        Reps          = n(),
+        `Mean Vel (m/s)` = round(mean(velocity, na.rm = TRUE), 3),
+        `Peak Vel (m/s)` = round(max(velocity,  na.rm = TRUE), 3),
+        `Vel Loss (%)`   = round(
+          (max(velocity[rep == min(rep)], na.rm = TRUE) -
+           min(velocity, na.rm = TRUE)) /
+          max(velocity[rep == min(rep)], na.rm = TRUE) * 100, 1),
+        .groups = "drop"
+      ) |>
+      arrange(Date, Set)
+
+    datatable(
+      display,
+      rownames  = FALSE,
+      selection = "none",
+      options   = list(
+        pageLength = 20,
+        dom        = "frtip",
+        columnDefs = list(list(className = "dt-center", targets = "_all"))
+      )
+    ) |>
+      formatStyle(
+        "Mean Vel (m/s)",
+        background = styleColorBar(range(display$`Mean Vel (m/s)`, na.rm = TRUE),
+                                   "#D71920", angle = -90),
+        backgroundSize    = "100% 88%",
+        backgroundRepeat  = "no-repeat",
+        backgroundPosition = "center"
+      ) |>
+      formatStyle(
+        "Vel Loss (%)",
+        color = styleInterval(c(10, 20), c("#4CAF50", "#FFC107", "#D71920")),
+        fontWeight = "600"
       )
   })
 }
