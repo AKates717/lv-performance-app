@@ -48,8 +48,3 @@ typography:
     color: red
     decoration: underline
 
-defaults:
-  shiny:
-    theme:
-      defaults:
-        navbar-bg: $primary

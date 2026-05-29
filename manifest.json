@@ -2955,10 +2955,10 @@
   },
   "files": {
     "_brand.yml": {
-      "checksum": "2681434af4da502083dafcdb76644bfd"
+      "checksum": "f2c0f3f491fe58fe01c2c7de3d980d94"
     },
     ".Rprofile": {
-      "checksum": "e75cb0191c6bfb5a69976f6715243625"
+      "checksum": "263ef9ad542a3c6d507c931d2d2ad12a"
     },
     "app.R": {
       "checksum": "d32127b04fc22b4c54920307b0f21f6b"
