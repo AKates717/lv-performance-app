@@ -5,6 +5,7 @@
 renv/library/
 renv/staging/
 *.json
+!manifest.json
 !renv/settings.json
 !renv/activate.R
 .DS_Store
