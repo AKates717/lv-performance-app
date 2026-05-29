@@ -17,14 +17,15 @@ supabase_key <- function() {
   key
 }
 
-supabase_headers <- function() {
+supabase_headers <- function(req) {
   key <- supabase_key()
-  httr2::req_headers(
-    apikey        = key,
-    Authorization = paste("Bearer", key),
-    `Content-Type` = "application/json",
-    Prefer        = "return=minimal"
-  )
+  req |>
+    httr2::req_headers(
+      apikey         = key,
+      Authorization  = paste("Bearer", key),
+      `Content-Type` = "application/json",
+      Prefer         = "return=minimal"
+    )
 }
 
 #' Append rows to the Supabase load_velocity table.
@@ -53,10 +54,7 @@ storage_append <- function(df) {
 #' Read all rows from the Supabase load_velocity table.
 storage_read <- function() {
   resp <- httr2::request(paste0(supabase_url(), "/load_velocity")) |>
-    httr2::req_headers(
-      apikey        = supabase_key(),
-      Authorization = paste("Bearer", supabase_key())
-    ) |>
+    supabase_headers() |>
     httr2::req_url_query(select = "*", order = "created_at.asc") |>
     httr2::req_error(is_error = \(r) FALSE) |>
     httr2::req_perform()
