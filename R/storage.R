@@ -1,14 +1,26 @@
 # Storage helpers (pins-based) -------------------------------------------------
+library(connectapi)  # required by pins::board_connect()
 
 PIN_NAME <- "lv_performance_data"
 
 #' Return the appropriate pins board.
-#' On Posit Connect the CONNECT_SERVER env var is set automatically.
+#' On Posit Connect Cloud, CONNECT_SERVER and CONNECT_API_KEY are injected
+#' automatically once "Use Service Account" is enabled in the app's Settings.
 #' Locally falls back to a folder-based board in the project directory.
 get_board <- function() {
-  if (nzchar(Sys.getenv("CONNECT_SERVER"))) {
-    pins::board_connect()
+  server  <- Sys.getenv("CONNECT_SERVER")
+  api_key <- Sys.getenv("CONNECT_API_KEY")
+
+  if (nzchar(server) && nzchar(api_key)) {
+    pins::board_connect(
+      server = server,
+      key    = api_key
+    )
+  } else if (nzchar(server)) {
+    # Server known but no key — try anonymous/implicit auth (self-hosted Connect)
+    pins::board_connect(server = server)
   } else {
+    # Local development: persist to a local folder
     pins::board_folder("data", versioned = FALSE)
   }
 }
