@@ -1,5 +1,6 @@
 library(shiny)
 library(bslib)
+library(brand.yml)
 library(dplyr)
 library(ggplot2)
 library(plotly)
