@@ -9,3 +9,4 @@ renv/staging/
 !renv/settings.json
 !renv/activate.R
 .DS_Store
+data/

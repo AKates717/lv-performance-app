@@ -43,15 +43,6 @@ EXERCISES <- list(
   )
 )
 
-# ── Google Sheets ─────────────────────────────────────────────────────────────
-# Paste the ID from your Google Sheet URL:
-#   https://docs.google.com/spreadsheets/d/<<SHEET_ID>>/edit
-# Leave blank to skip Google Sheets saving during development.
-GSHEET_ID <- ""
-
-# Name of the worksheet tab to write to.
-GSHEET_TAB <- "load_velocity"
-
 # ── Units ─────────────────────────────────────────────────────────────────────
 LOAD_UNIT  <- "kg"   # "kg" or "lbs"
 VEL_UNIT   <- "m/s"

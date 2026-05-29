@@ -4,35 +4,30 @@ library(dplyr)
 library(ggplot2)
 library(plotly)
 library(DT)
-library(googlesheets4)
+library(pins)
 
 source("config.R")
-source("R/sheets.R")
+source("R/storage.R")
 
 # ── Theme ─────────────────────────────────────────────────────────────────────
-brand_theme <- bs_theme(brand = "_brand.yml")
-
-# Inject a little extra CSS for the velocity input grid and status badges
-extra_css <- "
-  .vel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 6px; }
-  .vel-grid .form-group { margin-bottom: 0; }
-  .vel-grid label { font-size: 0.78rem; color: #A7A9AC; margin-bottom: 2px; }
-  .vel-grid input { font-size: 1rem; font-weight: 600; text-align: center; padding: 6px 4px; height: 42px; }
-  .set-badge { display: inline-block; background: #D71920; color: #fff;
-               font-family: 'Roboto Slab', serif; font-size: 0.8rem;
-               border-radius: 4px; padding: 2px 8px; margin-right: 4px; }
-  .stat-box  { background: #fff; border-left: 4px solid #D71920; border-radius: 4px;
-               padding: 10px 14px; margin-bottom: 8px; }
-  .stat-box .stat-label { font-size: 0.75rem; color: #A7A9AC; text-transform: uppercase; letter-spacing: .04em; }
-  .stat-box .stat-value { font-size: 1.5rem; font-weight: 700; font-family: 'Roboto Slab', serif; }
-  .sidebar-section { font-family: 'Roboto Slab', serif; font-size: 0.85rem;
-                     text-transform: uppercase; letter-spacing: .06em;
-                     color: #A7A9AC; margin: 14px 0 6px; }
-  .btn-entry { width: 100%; margin-top: 4px; }
-  #save_sheet { background-color: #4CAF50 !important; border-color: #4CAF50 !important; }
-  #clear_session { background-color: #A7A9AC !important; border-color: #A7A9AC !important; color: #fff !important; }
-  .save-status { font-size: 0.85rem; margin-top: 6px; min-height: 20px; }
-"
+brand_theme <- bs_theme(brand = "_brand.yml") |>
+  bs_add_rules("
+    .vel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 6px; }
+    .vel-grid .form-group { margin-bottom: 0; }
+    .vel-grid label { font-size: 0.78rem; color: #A7A9AC; margin-bottom: 2px; }
+    .vel-grid input { font-size: 1rem; font-weight: 600; text-align: center; padding: 6px 4px; height: 42px; }
+    .stat-box { background: #fff; border-left: 4px solid #D71920; border-radius: 4px;
+                padding: 10px 14px; margin-bottom: 8px; }
+    .stat-box .stat-label { font-size: 0.75rem; color: #A7A9AC; text-transform: uppercase; letter-spacing: .04em; }
+    .stat-box .stat-value { font-size: 1.5rem; font-weight: 700; font-family: 'Roboto Slab', serif; }
+    .sidebar-section { font-family: 'Roboto Slab', serif; font-size: 0.85rem;
+                       text-transform: uppercase; letter-spacing: .06em;
+                       color: #A7A9AC; margin: 14px 0 6px; }
+    .btn-entry { width: 100%; margin-top: 4px; }
+    #save_sheet { background-color: #4CAF50 !important; border-color: #4CAF50 !important; }
+    #clear_session { background-color: #A7A9AC !important; border-color: #A7A9AC !important; color: #fff !important; }
+    .save-status { font-size: 0.85rem; margin-top: 6px; min-height: 20px; }
+  ")
 
 # ── UI ────────────────────────────────────────────────────────────────────────
 ui <- page_navbar(
@@ -41,7 +36,6 @@ ui <- page_navbar(
     "Performance Testing"
   ),
   theme = brand_theme,
-  tags$head(tags$style(HTML(extra_css))),
 
   # ── Load-Velocity Tab ──────────────────────────────────────────────────────
   nav_panel(
@@ -77,7 +71,7 @@ ui <- page_navbar(
 
         # Action buttons
         actionButton("add_set",      "Add Set",             class = "btn btn-primary btn-entry"),
-        actionButton("save_sheet",   "Save to Google Sheets", class = "btn btn-entry mt-2"),
+        actionButton("save_sheet",   "Save to Connect", class = "btn btn-entry mt-2"),
         actionButton("clear_session","Clear Session",        class = "btn btn-entry mt-1"),
 
         div(class = "save-status", uiOutput("save_status"))
@@ -236,7 +230,7 @@ server <- function(input, output, session) {
     )
   })
 
-  # ── Save to Google Sheets ────────────────────────────────────────────────
+  # ── Save to pin ──────────────────────────────────────────────────────────
   observeEvent(input$save_sheet, {
     if (nrow(rv$session_data) == 0) {
       showNotification("No data to save yet.", type = "warning")
@@ -247,12 +241,11 @@ server <- function(input, output, session) {
     rv$save_ok      <- TRUE
 
     tryCatch({
-      sheets_auth()
-      sheets_append(rv$session_data, GSHEET_ID, GSHEET_TAB)
+      storage_append(rv$session_data)
       rv$save_message <- paste0("✓ Saved ", nrow(rv$session_data),
                                 " rows at ", format(Sys.time(), "%H:%M"))
       rv$save_ok      <- TRUE
-      showNotification("Saved to Google Sheets.", type = "message", duration = 4)
+      showNotification("Saved to Connect.", type = "message", duration = 4)
     }, error = function(e) {
       rv$save_message <- paste0("✗ Error: ", conditionMessage(e))
       rv$save_ok      <- FALSE

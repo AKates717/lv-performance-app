@@ -1801,6 +1801,43 @@
         "RemoteSha": "1.11.1"
       }
     },
+    "pins": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Type": "Package",
+        "Package": "pins",
+        "Title": "Pin, Discover, and Share Resources",
+        "Version": "1.4.2",
+        "Authors@R": "c(\n    person(\"Julia\", \"Silge\", , \"julia.silge@posit.co\", role = c(\"cre\", \"aut\"),\n           comment = c(ORCID = \"0000-0002-3671-836X\")),\n    person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = \"aut\",\n           comment = c(ORCID = \"0000-0003-4757-117X\")),\n    person(\"Javier\", \"Luraschi\", , \"jluraschi@gmail.com\", role = \"aut\"),\n    person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"))\n  )",
+        "Description": "Publish data sets, models, and other R objects, making it\n    easy to share them across projects and with your colleagues. You can\n    pin objects to a variety of \"boards\", including local folders (to\n    share on a networked drive or with 'DropBox'), 'Posit Connect',\n    'AWS S3', and more.",
+        "License": "Apache License (>= 2)",
+        "URL": "https://pins.rstudio.com/, https://github.com/rstudio/pins-r",
+        "BugReports": "https://github.com/rstudio/pins-r/issues",
+        "Depends": "R (>= 4.1.0)",
+        "Imports": "cli, digest, fs, generics, glue, httr, jsonlite, lifecycle,\npurrr (>= 1.0.0), rappdirs, rlang (>= 1.1.0), tibble, whisker,\nwithr (>= 2.4.3), yaml",
+        "Suggests": "archive, arrow, AzureStor, covr, data.table, datasets,\nfilelock, gitcreds, googleCloudStorageR, googledrive, httr2,\nids, knitr, Microsoft365R, mime, mockery, nanoparquet, openssl,\npaws.storage, qs2, R.utils, rmarkdown, rsconnect, shiny,\nsodium, testthat (>= 3.1.7), webfakes (>= 1.2.0), xml2, zip",
+        "VignetteBuilder": "knitr",
+        "Config/Needs/website": "tidyverse/tidytemplate",
+        "Config/testthat/edition": "3",
+        "Encoding": "UTF-8",
+        "RoxygenNote": "7.3.3",
+        "NeedsCompilation": "no",
+        "Packaged": "2026-03-09 13:27:10 UTC; juliasilge",
+        "Author": "Julia Silge [cre, aut] (ORCID: <https://orcid.org/0000-0002-3671-836X>),\n  Hadley Wickham [aut] (ORCID: <https://orcid.org/0000-0003-4757-117X>),\n  Javier Luraschi [aut],\n  Posit Software, PBC [cph, fnd]",
+        "Maintainer": "Julia Silge <julia.silge@posit.co>",
+        "Repository": "CRAN",
+        "Date/Publication": "2026-03-09 14:10:02 UTC",
+        "Built": "R 4.5.2; ; 2026-03-09 14:30:33 UTC; unix",
+        "RemoteType": "standard",
+        "RemoteRef": "pins",
+        "RemotePkgRef": "pins",
+        "RemoteRepos": "https://cloud.r-project.org",
+        "RemoteReposName": "CRAN",
+        "RemotePkgPlatform": "aarch64-apple-darwin20",
+        "RemoteSha": "1.4.2"
+      }
+    },
     "pkgconfig": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -2708,6 +2745,36 @@
         "RemoteSha": "0.4.3"
       }
     },
+    "whisker": {
+      "Source": "CRAN",
+      "Repository": "https://cloud.r-project.org",
+      "description": {
+        "Package": "whisker",
+        "Maintainer": "Edwin de Jonge <edwindjonge@gmail.com>",
+        "License": "GPL-3",
+        "Title": "{{mustache}} for R, Logicless Templating",
+        "Type": "Package",
+        "LazyLoad": "yes",
+        "Author": "Edwin de Jonge",
+        "Description": "Implements 'Mustache' logicless templating.",
+        "Version": "0.4.1",
+        "URL": "https://github.com/edwindj/whisker",
+        "Suggests": "markdown",
+        "RoxygenNote": "6.1.1",
+        "NeedsCompilation": "no",
+        "Packaged": "2022-12-05 15:15:55 UTC; hornik",
+        "Repository": "CRAN",
+        "Date/Publication": "2022-12-05 15:33:50 UTC",
+        "Built": "R 4.5.0; ; 2025-03-31 21:55:43 UTC; unix",
+        "RemoteType": "standard",
+        "RemoteRef": "whisker",
+        "RemotePkgRef": "whisker",
+        "RemoteRepos": "https://cloud.r-project.org",
+        "RemoteReposName": "CRAN",
+        "RemotePkgPlatform": "aarch64-apple-darwin20",
+        "RemoteSha": "0.4.1"
+      }
+    },
     "withr": {
       "Source": "CRAN",
       "Repository": "https://cloud.r-project.org",
@@ -2855,22 +2922,25 @@
       "checksum": "2681434af4da502083dafcdb76644bfd"
     },
     ".Rprofile": {
-      "checksum": "cc232707d485be3bf8f8ecf0f2b57dec"
+      "checksum": "dbab252dc6e14e65dc108a7b881af57d"
     },
     "app.R": {
-      "checksum": "2388ffb6ebc79004b4832d02586b685f"
+      "checksum": "d8792fbff07ed6b072f0fe328bb60100"
     },
     "config.R": {
-      "checksum": "7d6c3ed4feeeeea8a8e86e0e3bb4cc72"
+      "checksum": "5ccb798bfe2ec43750c97c8c5983f7d3"
     },
     "R/sheets.R": {
       "checksum": "791a3b0dd63cf9bc70ae469093bf703f"
+    },
+    "R/storage.R": {
+      "checksum": "c7c52771885e9ae161eaeac716fd379e"
     },
     "README.md": {
       "checksum": "c50f8c2b13b33448a965242217ce069a"
     },
     "renv.lock": {
-      "checksum": "20928d3660eee34c95f6fd94ad0633ef"
+      "checksum": "cda18334cae243418bc6d44b8fc26bf7"
     }
   },
   "users": null
